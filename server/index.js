@@ -17,18 +17,46 @@ connection.connect((err)=> {
 });
 
 
-console.log("hell");
-
+//the error was that the object was getting run into the browser but I needed to properlly turn it into
+//a json string first before i did that.
 connection.query('SELECT * FROM favorites', function (error, results, fields) {
   if (error) console.error(error);
-  console.log('The solution is: ', results);
+  // console.log('The solution is: ', results);
+  console.log('AAAAAAAAAAAAAAAAAAAAAAAaa');
+  console.log(JSON.parse(results[0].name), 'should be stuff');
 });
 
 
 
 app.use(express.static('client/dist'));
 
-console.log('hello');
+//controller
+
+//the second argument can be imported and called here?
+
+//model layer handles data
+
+//model method exports the function
+
+//and the controller layer would import the function
+
+//all the callbacks in a controller folder
+
+//for each route in app.get 
+
+//the callback has req and res
+
+//is to build a folder for controllers
+
+//build a folder for models?
+
+//index should be the router
+
+//controller files
+
+//controller's main job is to handle requests.
+
+//
 
 
 app.get('/monster', (req, res) => {
@@ -39,6 +67,7 @@ app.get('/monster', (req, res) => {
   axios.get(`https://api.open5e.com/monsters/?${req.query.type}=${req.query.name}`)
   .then(function (response) {
     // handle success
+    console.log('focusing')
     // console.log(response.data);
     res.status(200);
     res.send(response.data);
@@ -84,9 +113,13 @@ app.get('/singlemonster', (req, res) => {
 
 app.post('/favorites', (req, res)=> {
 
-  console.log(req.query.name);
+  console.log(req.query.name, 'what is this2');
 
-  connection.query(`INSERT INTO favorites (name) values ("${req.query.name}")`, function (error, results, fields) {
+
+  console.log(req.query.name, 'store string', typeof(storeString));
+
+
+  connection.query(`INSERT INTO favorites (name) values ('${req.query.name}')`, function (error, results, fields) {
     if (error) console.error(error);
     console.log('The solution is: ', results);
   });
@@ -110,8 +143,16 @@ app.get('/favorites', (req, res)=> {
     if (error) console.error(error);
     else {
       console.log(results);
+
+      let thing = results;
+
+      console.log(thing, 'thing');
+      // let thing2;
+      // // = JSON.parse(thing.name);
+      // console.log((thing.name), 'maybe things needs to be parsed more?')
+      // console.log(typeof(thing2), thing2, '.name');
       res.status(200);
-      res.send(results)
+      res.send(results.data)
     }
   });
 
@@ -124,3 +165,8 @@ app.get('/favorites', (req, res)=> {
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 })
+
+
+
+//control . seems to allow something to be extracted to global scope by putting the contents of said thing into a function (which you name on the spot)
+//and have that function outisde in the global area.

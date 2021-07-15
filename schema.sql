@@ -6,4 +6,4 @@ USE DnD;
 
 CREATE TABLE favorites
   (id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255));
+  name JSON);

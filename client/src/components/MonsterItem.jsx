@@ -26,8 +26,11 @@ class MonsterItem extends React.Component {
   sendFavorite = (event) => {
     console.log(event.value, event.target.value, 'the event thing');
 
-    console.log('should post');
-    axios.post(`/favorites?name=${event.target.value}`)
+    console.log('this.state.thisMon', this.state.thisMon);
+    let test = JSON.stringify(this.state.thisMon)
+    console.log(test, 'test');
+
+    axios.post(`/favorites?name=${test}`)
     .then((signalback) => {
       console.log('posted favorites')
 
@@ -89,10 +92,12 @@ class MonsterItem extends React.Component {
         <div>AC: {this.state.thisMon.armor_class}</div>
         <div>HitPoints: {this.state.thisMon.hit_points}</div>
         <div>Strength:{this.state.thisMon.strength} Dexterity:{this.state.thisMon.dexterity} Constitution:{this.state.thisMon.constitution} Wisdom:{this.state.thisMon.wisdom} Intelligence:{this.state.thisMon.intelligence} Charisma:{this.state.thisMon.charisma}</div>
-        <button value={this.state.thisMon.slug} onClick={(event)=>this.sendFavorite(event)}>add favorite</button>
+        <button value={this.state.thisMon} onClick={(event)=>this.sendFavorite(event)}>add favorite</button>
       </fieldset>
     );
   }
+
+  // <button value={this.state.thisMon.slug} onClick={(event)=>this.sendFavorite(event)}>add favorite</button>
 
   console.log('first');
   console.log(this.props.slug, 'slugger');
